@@ -477,8 +477,12 @@ class KeyringController extends EventEmitter {
 
 
     async sendTransaction(signedTx, web3) {
-        const receipt = await web3.eth.sendSignedTransaction(signedTx);
-        return { transactionDetails: receipt.transactionHash }
+        try {
+            const receipt = await web3.eth.sendSignedTransaction(signedTx);
+            return { transactionDetails: receipt.transactionHash }
+        } catch (err) {
+            throw err
+        }
     }
 
     async getFees(velasTx, web3) {

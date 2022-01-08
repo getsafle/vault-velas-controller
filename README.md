@@ -66,3 +66,18 @@ const signedMsg = await velasController.signMessage(msgParams);
 ```
 const signedData = await velasController.signTypedMessage (msgParams);
 ```
+
+#### Raw transaction object
+
+```
+rawTx: {
+  to, // receiver address
+  from, // sender address
+  value, // amount to send
+  gas, // gas Limit of transaction
+  gasPrice, // gasPrice
+  data, // data in hex to send
+  nonce, // transaction nonce
+  chainId, // chainID | 111 - TESTNET, 106 - MAINNET
+}
+```
