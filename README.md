@@ -7,9 +7,9 @@
 ## Initialize the Velas Controller class
 
 ```
-const controller = require('@getsafle/vault-velas-controller');
+const { KeyringController, getBalance } = require('@getsafle/vault-velas-controller');
 
-const velasController = new controller({
+const velasController = new KeyringController({
   encryptor: {
     // An optional object for defining encryption schemes:
     // Defaults to Browser-native SubtleCrypto.
