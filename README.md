@@ -64,7 +64,7 @@ const signedMsg = await velasController.signMessage(msgParams);
 ### Sign Typed Data (EIP-712)
 
 ```
-const signedData = await velasController.signTypedMessage (msgParams);
+const signedData = await velasController.signTypedMessage(msgParams);
 ```
 
 #### Raw transaction object
@@ -80,4 +80,10 @@ rawTx: {
   nonce, // transaction nonce
   chainId, // chainID | 111 - TESTNET, 106 - MAINNET
 }
+```
+
+### Get balance
+
+```
+const balance = await getBalance(address, web3);
 ```

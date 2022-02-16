@@ -1,6 +1,6 @@
 {
   "name": "@getsafle/vault-velas-controller",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Velas controller for safle vault.",
   "engines": {
     "node": ">= 10"
