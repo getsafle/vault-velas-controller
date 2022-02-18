@@ -2,7 +2,8 @@ var assert = require('assert');
 const Web3 = require('web3')
 const tokenContract = require('./contract-json/TestToken.json');
 const CryptoJS = require('crypto-js');
-const VelasKeyring = require('../src/index')
+const { KeyringController: VelasKeyring, getBalance } = require('../src/index')
+
 const {
     HD_WALLET_12_MNEMONIC,
     HD_WALLET_12_MNEMONIC_TEST_OTHER,
@@ -102,6 +103,13 @@ describe('Initialize wallet ', () => {
         const address = await velasKeyring.importWallet(EXTERNAL_ACCOUNT_PRIVATE_KEY)
         assert(address.toLowerCase() === EXTERNAL_ACCOUNT_ADDRESS.toLowerCase(), "Wrong address")
         assert(velasKeyring.importedWallets.length === 1, "Should have 1 imported wallet")
+    })
+
+    it("Get address balance", async () => {
+        const accounts = await velasKeyring.getAccounts()
+        const web3 = new Web3(TESTNET.URL);
+        const balance = await getBalance(accounts[0], web3)
+        console.log(" get balance ", balance, accounts)
     })
 
 })

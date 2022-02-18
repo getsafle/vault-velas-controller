@@ -7,9 +7,9 @@
 ## Initialize the Velas Controller class
 
 ```
-const controller = require('@getsafle/vault-velas-controller');
+const { KeyringController, getBalance } = require('@getsafle/vault-velas-controller');
 
-const velasController = new controller({
+const velasController = new KeyringController({
   encryptor: {
     // An optional object for defining encryption schemes:
     // Defaults to Browser-native SubtleCrypto.
@@ -64,7 +64,7 @@ const signedMsg = await velasController.signMessage(msgParams);
 ### Sign Typed Data (EIP-712)
 
 ```
-const signedData = await velasController.signTypedMessage (msgParams);
+const signedData = await velasController.signTypedMessage(msgParams);
 ```
 
 #### Raw transaction object
@@ -80,4 +80,10 @@ rawTx: {
   nonce, // transaction nonce
   chainId, // chainID | 111 - TESTNET, 106 - MAINNET
 }
+```
+
+### Get balance
+
+```
+const balance = await getBalance(address, web3);
 ```
