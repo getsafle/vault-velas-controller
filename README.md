@@ -61,6 +61,12 @@ const signedTx = await velasController.signTransaction(velasTx, _fromAddress);
 const signedMsg = await velasController.signMessage(msgParams);
 ```
 
+### Sign a message
+
+```
+const signedObj = await velasController.sign(msgParams, pvtKey, web3Obj);
+```
+
 ### Sign Typed Data (EIP-712)
 
 ```
