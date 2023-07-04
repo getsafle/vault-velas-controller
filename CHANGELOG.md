@@ -21,3 +21,10 @@
 ##### Implement sign functionality
 
 - Added sign() to sign a message or transaction and get signature along with v,r,s.
+
+### 1.3.0 (2023-07-04)
+
+##### Added test suite
+
+- Added test suite to Velas
+
