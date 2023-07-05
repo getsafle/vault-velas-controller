@@ -26,7 +26,4 @@
 
 - Node issue fix
 - updated branch in CI pipeline
-
-### 1.3.1 (2023-07-05)
-
 - Updating importWallet()  and adding test suite for velas controller 
