@@ -27,4 +27,5 @@
 ##### Added test suite
 
 - Added test suite to Velas
-
+- Node issue fix
+- updated branch in CI pipeline
