@@ -1,1 +1,3 @@
 node_modules
+jscoverage
+.nyc_output

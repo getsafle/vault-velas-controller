@@ -28,3 +28,4 @@
 - updated branch in CI pipeline
 - Updating importWallet()  and adding test suite for velas controller 
 - Adding badges for Readme.md
+- Added coverage report files in gitignore
