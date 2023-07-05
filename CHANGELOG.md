@@ -21,3 +21,8 @@
 ##### Implement sign functionality
 
 - Added sign() to sign a message or transaction and get signature along with v,r,s.
+
+### 1.3.0 (2023-07-04)
+
+- Node issue fix
+- updated branch in CI pipeline
