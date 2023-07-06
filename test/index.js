@@ -1,41 +1,24 @@
 var assert = require('assert');
 const Web3 = require('web3')
-const tokenContract = require('./contract-json/TestToken.json');
 const CryptoJS = require('crypto-js');
 const { KeyringController: VelasKeyring, getBalance } = require('../src/index')
 
 const {
     HD_WALLET_12_MNEMONIC,
     HD_WALLET_12_MNEMONIC_TEST_OTHER,
+    HD_WALLET_24_MNEMONIC,
     TESTING_MESSAGE_1,
     TESTING_MESSAGE_2,
     TESTING_MESSAGE_3,
     EXTERNAL_ACCOUNT_PRIVATE_KEY,
     EXTERNAL_ACCOUNT_ADDRESS,
     EXTERNAL_ACCOUNT_WRONG_PRIVATE_KEY_1,
-    EXTERNAL_ACCOUNT_WRONG_PRIVATE_KEY_2,
     EXTERNAL_ACCOUNT_WRONG_PRIVATE_KEY_3,
     VELAS_NETWORK: {
         TESTNET,
         MAINNET
     },
-    TRANSFER_VELAS: {
-        VELAS_AMOUNT,
-        VELAS_RECEIVER
-    },
-    CONTRACT_TXN: {
-        VELAS_CONTRACT,
-        VELAS_AMOUNT_TO_CONTRACT
-    },
 } = require('./constants');
-
-const CONTRACT_MINT_PARAM = {
-    from: VELAS_CONTRACT,
-    to: '', // this will be the current account 
-    amount: 1,
-    nonce: 0,
-    signature: [72, 0, 101, 0, 108, 0, 108, 0, 111, 0, 220, 122]
-}
 
 const opts = {
     encryptor: {
@@ -56,14 +39,6 @@ const opts = {
 const opts_empty = {}
 
 const PASSWORD = "random_password"
-
-/**
- * Transaction object type
- * {    from: from address,
-        to: to address,
-        value: amount (in wei),
-        data: hex string}
- */
 
 describe('Initialize wallet ', () => {
     const velasKeyring = new VelasKeyring(opts)
@@ -115,6 +90,33 @@ describe('Initialize wallet ', () => {
         const web3 = new Web3(TESTNET.URL);
         const balance = await getBalance(accounts[0], web3)
         console.log(" get balance ", balance, accounts)
+    })
+    
+    it(" Should Sign a transaction", async() =>{
+        const accounts = await velasKeyring.getAccounts()
+        const from = accounts[0]
+        const web3 = new Web3(MAINNET.URL);
+
+        const count = await web3.eth.getTransactionCount(from);
+
+        const defaultNonce = await web3.utils.toHex(count) + 1 ;
+        
+        rawTx= {
+            to:'0x9E1447ea3F6abA7a5D344B360B95Fd9BAE049448', 
+            from,                                                                    // sender address
+            value: web3.utils.numberToHex(web3.utils.toWei('0.01', 'ether')),        // amount to send
+            gas: web3.utils.numberToHex(25000),                                      // gas Limit of transaction
+            gasPrice: web3.utils.numberToHex(web3.utils.toWei('55', 'gwei')),        // gasPrice
+            data: '0x00',                                                            // data in hex to send
+            nonce: defaultNonce,                                                     // transaction nonce
+            chainId: 106,                                                            // chainID | 111 - TESTNET, 106 - MAINNET
+          };
+
+          const privateKey = await velasKeyring.exportAccount(accounts[0])
+          const signedTX = await velasKeyring.signTransaction(rawTx, privateKey)
+          console.log("signedTX ", signedTX)
+
+
     })
 
 })
