@@ -26,3 +26,4 @@
 
 - Node issue fix
 - updated branch in CI pipeline
+- Updating importWallet()  and adding test suite for velas controller 
