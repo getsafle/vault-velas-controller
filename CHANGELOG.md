@@ -21,3 +21,11 @@
 ##### Implement sign functionality
 
 - Added sign() to sign a message or transaction and get signature along with v,r,s.
+
+### 1.3.0 (2023-07-04)
+
+- Node issue fix
+- updated branch in CI pipeline
+- Updating importWallet()  and adding test suite for velas controller 
+- Adding badges for Readme.md
+- Added coverage report files in gitignore

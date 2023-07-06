@@ -1,9 +1,26 @@
-# vault-velas-controller
+# Vault-velas-controller <code><a href="https://www.docker.com/" target="_blank"><img height="50" src="https://velas.com/assets/img/logo.svg"></a></code>
 
-## Install
+[![npm version](https://badge.fury.io/js/@getsafle%2Fvault-velas-controller.svg)](https://badge.fury.io/js/@getsafle%2Fvault-velas-controller)   <img alt="Static Badge" src="https://img.shields.io/badge/License-MIT-green">   [![Discussions][discussions-badge]][discussions-link]
+ <img alt="Static Badge" src="https://img.shields.io/badge/Velas_controller-documentation-purple">   
 
-`npm install --save @getsafle/vault-velas-controller`
+A Module written in javascript for managing various keyrings of Velas accounts, encrypting them, and using them.
 
+- [Installation](#installation)
+- [Initialize the Velas Controller class](#initialize-the-velas-controller-class)
+- [Methods](#methods)
+  - [Generate Keyring with 1 account and encrypt](#generate-keyring-with-1-account-and-encrypt)
+  - [Restore a keyring with the first account using a mnemonic](#restore-a-keyring-with-the-first-account-using-a-mnemonic)
+  - [Add a new account to the keyring object](#add-a-new-account-to-the-keyring-object)
+  - [Export the private key of an address present in the keyring](#export-the-private-key-of-an-address-present-in-the-keyring)
+  - [Sign a transaction](#sign-a-transaction)
+  - [Sign a message](#sign-a-message)
+  - [Get balance](#get-balance)
+
+
+## Installation
+```
+npm install --save @getsafle/vault-velas-controller
+```
 ## Initialize the Velas Controller class
 
 ```
@@ -77,14 +94,14 @@ const signedData = await velasController.signTypedMessage(msgParams);
 
 ```
 rawTx: {
-  to, // receiver address
-  from, // sender address
-  value, // amount to send
-  gas, // gas Limit of transaction
-  gasPrice, // gasPrice
-  data, // data in hex to send
-  nonce, // transaction nonce
-  chainId, // chainID | 111 - TESTNET, 106 - MAINNET
+  to,                          // receiver address
+  from,                        // sender address
+  value,                       // amount to send
+  gas,                         // gas Limit of transaction
+  gasPrice,                    // gasPrice
+  data,                        // data in hex to send
+  nonce,                       // transaction nonce
+  chainId,                     // chainID | 111 - TESTNET, 106 - MAINNET
 }
 ```
 
@@ -93,3 +110,5 @@ rawTx: {
 ```
 const balance = await getBalance(address, web3);
 ```
+[discussions-badge]: https://img.shields.io/badge/Code_Quality-passing-rgba
+[discussions-link]: https://github.com/getsafle/vault-velas-controller/actions
