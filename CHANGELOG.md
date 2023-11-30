@@ -33,3 +33,4 @@
 ### 1.3.1 (2023-11-30)
 
 - Updated gasFee() method for type 1 transactions and added its test.
+- Changed license to MIT.
