@@ -91,6 +91,20 @@ describe('Initialize wallet ', () => {
         const balance = await getBalance(accounts[0], web3)
         console.log(" get balance ", balance, accounts)
     })
+
+
+    it("Get fees for a velas tx", async () => {
+        const accounts = await velasKeyring.getAccounts()
+        const web3 = new Web3(TESTNET.URL);
+        const tx = {
+            from: accounts[0],
+            to: '0x641BB2596D8c0b32471260712566BF933a2f1a8e',
+            value: 0,
+            data: "0x00"
+        }
+        const getEstimate = await velasKeyring.getFees(tx, web3)
+        console.log(" get gas estimate  ", getEstimate)
+    })
     
     it(" Should Sign a transaction", async() =>{
         const accounts = await velasKeyring.getAccounts()
