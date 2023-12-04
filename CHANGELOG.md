@@ -29,3 +29,8 @@
 - Updating importWallet()  and adding test suite for velas controller 
 - Adding badges for Readme.md
 - Added coverage report files in gitignore
+
+### 1.3.1 (2023-11-30)
+
+- Updated gasFee() method for type 1 transactions and added its test.
+- Changed license to MIT.
