@@ -34,3 +34,7 @@
 
 - Updated gasFee() method for type 1 transactions and added its test.
 - Changed license to MIT.
+
+### 1.3.2 (2023-12-15)
+
+- Replaced deprecated ethereumjs-tx lib to @ethereumjs/tx and @ethereumjs/common for transaction signing.

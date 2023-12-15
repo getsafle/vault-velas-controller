@@ -1,6 +1,6 @@
 module.exports = {
     HD_WALLET_12_MNEMONIC_TEST_OTHER: 'orange lecture tiger surround narrow much novel arrange sample balance weapon bacon',
-    HD_WALLET_12_MNEMONIC: 'clown inhale cargo group pet focus unaware license smoke spring paddle crane',
+    HD_WALLET_12_MNEMONIC: 'affair entry detect broom axis crawl found valve bamboo taste broken hundred',
     HD_WALLET_24_MNEMONIC: 'begin pyramid grit rigid mountain stamp legal item result peace wealth supply satoshi elegant roof identify furnace march west chicken pen gorilla spot excuse',
 
     TESTING_MESSAGE_1: "ThisMessageOneIsForTesting",

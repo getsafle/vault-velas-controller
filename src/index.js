@@ -2,12 +2,18 @@
 const { EventEmitter } = require('events')
 const log = require('loglevel')
 const ethUtil = require('ethereumjs-util')
-const Tx = require('ethereumjs-tx');
+
 
 const bip39 = require('bip39')
 const ObservableStore = require('obs-store')
 const encryptor = require('browser-passworder')
 const { normalize: normalizeAddress } = require('eth-sig-util')
+
+const { LegacyTransaction } = require('@ethereumjs/tx')
+const { Common, Hardfork } = require('@ethereumjs/common')
+const { bufferToHex } = require('ethereumjs-util')
+let chainId;
+
 
 const SimpleKeyring = require('eth-simple-keyring')
 const HdKeyring = require('eth-hd-keyring')
@@ -260,16 +266,19 @@ class KeyringController extends EventEmitter {
      * @returns {string} The signed transaction raw string.
      */
 
-    async signTransaction(velasTx, privateKey) {
-        const tx = new Tx(velasTx);
+    async signTransaction(rawTx, privateKey) {
 
         const pkey = Buffer.from(privateKey, 'hex');
+        
+        const common = Common.custom({ chainId: chainId }, { hardfork: Hardfork.Istanbul })
 
-        tx.sign(pkey);
+        const tx = LegacyTransaction.fromTxData(rawTx,{common})
 
-        const signedTx = `0x${tx.serialize().toString('hex')}`;
+        const signedTransaction = tx.sign(pkey);
 
-        return signedTx;
+        const signedTx = bufferToHex(signedTransaction.serialize());
+
+        return signedTx
     }
 
     /**
@@ -526,6 +535,7 @@ class KeyringController extends EventEmitter {
     async getFees(velasTx, web3) {
         const { from, to, value, data, manualLimit } = velasTx
         const gasLimit = manualLimit ? manualLimit : await web3.eth.estimateGas({ to, from, value, data })
+        chainId = await web3.eth.getChainId()
         const gasPrice = parseInt(await web3.eth.getGasPrice());
         const fees = {
             "slow":{

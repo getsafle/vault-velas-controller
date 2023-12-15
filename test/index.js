@@ -67,9 +67,9 @@ describe('Initialize wallet ', () => {
 
     it("Get fees with manual gasLimit", async () => {
         const accounts = await velasKeyring.getAccounts()
-        const web3 = new Web3(TESTNET.URL);
+        const web3 = new Web3(MAINNET.URL);
         const tx = {
-            gasLimit: 2100
+            gasLimit: 2100 
         }
         const fees = await velasKeyring.getFees(tx, web3)
         console.log(" with manual gasLimit ", fees)
@@ -87,7 +87,7 @@ describe('Initialize wallet ', () => {
 
     it("Get address balance", async () => {
         const accounts = await velasKeyring.getAccounts()
-        const web3 = new Web3(TESTNET.URL);
+        const web3 = new Web3(MAINNET.URL);
         const balance = await getBalance(accounts[0], web3)
         console.log(" get balance ", balance, accounts)
     })
@@ -95,7 +95,7 @@ describe('Initialize wallet ', () => {
 
     it("Get fees for a velas tx", async () => {
         const accounts = await velasKeyring.getAccounts()
-        const web3 = new Web3(TESTNET.URL);
+        const web3 = new Web3(MAINNET.URL);
         const tx = {
             from: accounts[0],
             to: '0x641BB2596D8c0b32471260712566BF933a2f1a8e',
@@ -106,31 +106,35 @@ describe('Initialize wallet ', () => {
         console.log(" get gas estimate  ", getEstimate)
     })
     
-    it(" Should Sign a transaction", async() =>{
+    it("sign Transaction ", async () => {
+
         const accounts = await velasKeyring.getAccounts()
         const from = accounts[0]
         const web3 = new Web3(MAINNET.URL);
 
         const count = await web3.eth.getTransactionCount(from);
 
-        const defaultNonce = await web3.utils.toHex(count) + 1 ;
-        
-        rawTx= {
-            to:'0x9E1447ea3F6abA7a5D344B360B95Fd9BAE049448', 
-            from,                                                                    // sender address
-            value: web3.utils.numberToHex(web3.utils.toWei('0.01', 'ether')),        // amount to send
-            gas: web3.utils.numberToHex(25000),                                      // gas Limit of transaction
-            gasPrice: web3.utils.numberToHex(web3.utils.toWei('55', 'gwei')),        // gasPrice
-            data: '0x00',                                                            // data in hex to send
-            nonce: defaultNonce,                                                     // transaction nonce
-            chainId: 106,                                                            // chainID | 111 - TESTNET, 106 - MAINNET
-          };
+        const defaultNonce = await web3.utils.toHex(count);
+        const to = '0x641BB2596D8c0b32471260712566BF933a2f1a8e' 
 
-          const privateKey = await velasKeyring.exportAccount(accounts[0])
-          const signedTX = await velasKeyring.signTransaction(rawTx, privateKey)
-          console.log("signedTX ", signedTX)
+        const getFeeEstimate= await velasKeyring.getFees({from,to,
+            value: web3.utils.numberToHex(web3.utils.toWei('0', 'ether')),data:"0x"},web3);
+            console.log(getFeeEstimate);
 
+        const rawTx = {
+            to,
+            from,
+            value: web3.utils.numberToHex(web3.utils.toWei('0.001', 'ether')),
+            gasLimit:getFeeEstimate.gasLimit,
+            gasPrice: getFeeEstimate.fees.slow.gasPrice,
+            nonce: defaultNonce,
+            data: '0x',
+            chainId: MAINNET.CHAIN_ID
+        };
 
+        const privateKey = await velasKeyring.exportAccount(accounts[0])
+        const signedTX = await velasKeyring.signTransaction(rawTx, privateKey)
+        console.log("signedTX ", signedTX)
     })
 
 })
