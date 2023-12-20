@@ -124,7 +124,7 @@ describe('Initialize wallet ', () => {
         const rawTx = {
             to,
             from,
-            value: web3.utils.numberToHex(web3.utils.toWei('0.001', 'ether')),
+            value: web3.utils.numberToHex(web3.utils.toWei('0', 'ether')),
             gasLimit:getFeeEstimate.gasLimit,
             gasPrice: getFeeEstimate.fees.slow.gasPrice,
             nonce: defaultNonce,
@@ -135,6 +135,7 @@ describe('Initialize wallet ', () => {
         const privateKey = await velasKeyring.exportAccount(accounts[0])
         const signedTX = await velasKeyring.signTransaction(rawTx, privateKey)
         console.log("signedTX ", signedTX)
+        
     })
 
 })

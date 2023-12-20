@@ -38,3 +38,4 @@
 ### 1.3.2 (2023-12-15)
 
 - Replaced deprecated ethereumjs-tx lib to @ethereumjs/tx and @ethereumjs/common for transaction signing.
+- Removed 'signTransaction' dependency from 'getFees' method.
